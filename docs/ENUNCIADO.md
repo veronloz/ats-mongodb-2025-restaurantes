@@ -1,5 +1,7 @@
 # PLAB 06/03/2025 TEMA 1 MongoDB - Arquitectura y Tecnologías del Software (ATS)
 
+*También podéis encontrar el enunciado de la práctica en formato PDF en el Campus Virtual*
+
 ## Introducción
 
 En esta práctica pondrás a prueba los conocimientos adquiridos sobre bases de datos NoSQL utilizando MongoDB. Diseñarás un esquema adecuado, justificarás tus decisiones técnicas en términos de diseño, cardinalidad, rendimiento y tipos de índices, y realizarás consultas avanzadas utilizando el Aggregation Framework.
