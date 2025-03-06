@@ -28,6 +28,7 @@ Consulta la documentación completa en los siguientes archivos dentro del direct
 
 ### Requisitos Previos
 
+- Cuenta en MongoDB Atlas (si trabajáis en la nube)
 - MongoDB instalado (versión 6.0 o superior).
 - MongoDB Compass (opcional, para visualización de datos o trabajar con la shell).
 - MongoDB Shell (mongosh) para ejecutar consultas.
@@ -47,6 +48,9 @@ Consulta la documentación completa en los siguientes archivos dentro del direct
    mongoimport --db restaurant_db --collection restaurants --file datasets/restaurants.json --jsonArray
    mongoimport --db restaurant_db --collection inspections --file datasets/inspections.json --jsonArray
    ```
+
+**O utilizar el proceso de importacion de datos desde MongoDB Compass**.
+
 
 ## Contacto
 

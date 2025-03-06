@@ -17,6 +17,7 @@ Cada restaurante puede tener múltiples inspecciones asociadas, estableciendo un
 
 ### Requisitos Previos
 
+- Cuenta en MongoDB Atlas (si trabajáis en la nube)
 - MongoDB instalado (versión 6.0 o superior).
 - MongoDB Compass (opcional, para visualización de datos o trabajar con la shell).
 - MongoDB Shell (mongosh) para ejecutar consultas.
