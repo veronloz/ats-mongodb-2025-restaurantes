@@ -2,7 +2,8 @@
 
    - **Nombre completo Integrantes**: 
    - **Grupo de prácticas**: 
-   - **Correos electrónicos**: 
+   - **Correos electrónicos**:
+   - **NIUs**
 
    ## Resumen de la Entrega
 
