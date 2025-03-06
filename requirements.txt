@@ -1,0 +1,2 @@
+# https://www.mongodb.com/docs/languages/python/
+# https://www.mongodb.com/docs/languages/java/
