@@ -280,7 +280,7 @@ db.restaurants.aggregate([
     },
     {
         //Sacar del pipeline lo qeu no queremos
-        $unset: ["restaurant_id", "inspection_history.restaurant_id", "inspection_history.address"]
+        $unset: ["restaurant_id", "inspection_history.restaurant_id", "inspection_history.address", "inspection_history.business_name"]
     },
     {
         $addFields: {//Añadimos el rating con addFields
@@ -297,6 +297,7 @@ db.restaurants.aggregate([
         $out: "restaurants_with_inspections" //Creamos una nueva colección
     }
  ]);
+ 
  
  //Ordenar inspeccions a partir de la fecha
  db.restaurants_with_inspections.aggregate([
@@ -318,7 +319,94 @@ db.restaurants.aggregate([
 ])
 
 
+//Esquema de validación restaurants_with_inspections
+db.createCollection("restaurants_with_inspections", {
+    validator : {
+        "$jsonSchema": {
+      "bsonType": "object",
+      "required": ["address", "name", "outcode", "postcode", "type_of_food"],
+      "properties": {
+        "_id": {
+          "bsonType": "objectId",
+          "description": "id del restaurante"
+        },
+        "URL": {
+          "bsonType": "string",
+          "description": "URL opcional... No sale en todos los docs"
+        },
+        "address": {
+          "bsonType": ["int", "string"],
+          "description": "Dirección"
+        },
+        "address line 2": {
+          "bsonType": "string",
+          "description": "línea 2 de dirección",
+        },
+        "name": {
+          "bsonType": "string",
+          "description": "Nombre del restaurante"
+        },
+        "outcode": {
+          "bsonType": "string",
+          "description": "outcode como string"
+        },
+        "postcode": {
+          "bsonType": "string",
+          "description": "postcode como string"
+        },
+        "rating": {
+          "bsonType": ["int", "double"],
+          "minimum": 0,
+          "maximum": 10,
+          "description": "Rating del restaurante [0-10]"
+        },
+        "type_of_food": {
+          "bsonType": "string",
+          "description": "Tipo de comida"
+        },
+        "inspection_history": {
+          "bsonType": "array",
+          "description": "Resulatdo del lookup - historial de inpecciones",
+          "items": {
+            "bsonType": "object",
+            "required": ["id", "certificate_number", "date", "result", "sector"],
+            "properties": {
+              "id": {
+                "bsonType": "string",
+                "description": "ID de la inspección"
+              },
+              "certificate_number": {
+                "bsonType": ["int", "string"],
+                "description": "Según las pruebas aquí puede ser int o string"
+              },
+              "date": {
+                "bsonType": "date",
+                "description": "Debe ser una fecha y es requerido para determinar la validez de la inspección."
+              },
+              "result": {
+                "bsonType": "string",
+                "enum": ["Fail", "No Violation Issued", "Pass", "Violation Issued", "Warning Issued"],
+                "description": "Debe ser uno de los valores predefinidos y es requerido."
+              },
+              "sector": {
+                "bsonType": "string",
+                "description": "Sector de inspección"
+              }
+            }
+          }
+        }
+      }
+    }
+    }
+  });
+  
+
+
 //Creación de indices
-db.inspections.dropIndex({"result" : 1})
-db.inspections.createIndex({ "rating": -1 })
+db.inspections.createIndex({"result" : 1})
+db.inspections.createIndex({ "rating": 1 })
 db.restaurants.createIndex({ "type_of_food": 1 })
+db.restaurants.createIndex({ "postcode": 1 })
+
+//Hemos creado y realizado las pruebas de los indices en los datasets originales
+
