@@ -316,3 +316,9 @@ db.restaurants.aggregate([
         }
     }
 ])
+
+
+//Creación de indices
+db.inspections.dropIndex({"result" : 1})
+db.inspections.createIndex({ "rating": -1 })
+db.restaurants.createIndex({ "type_of_food": 1 })
